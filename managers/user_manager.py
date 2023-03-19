@@ -1,0 +1,85 @@
+from psycopg2.errorcodes import UNIQUE_VIOLATION
+from werkzeug.exceptions import BadRequest, InternalServerError
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from db import db
+from models.user_models import UploaderModel, AdministratorModel, VoterModel
+
+
+class UserManager:
+    @staticmethod
+    def register_voter(user_data):
+        user_data["password"] = generate_password_hash(user_data["password"])
+        user = VoterModel(**user_data)
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except Exception as ex:
+            if ex.orig.pgcode == UNIQUE_VIOLATION:
+                raise BadRequest("Please login")
+            else:
+                # To find better error description, this is database error, not back end sever error
+                InternalServerError("Server error")
+        return user
+    
+    @staticmethod
+    def register_uploader(user_data):
+        user_data["password"] = generate_password_hash(user_data["password"])
+        user = UploaderModel(**user_data)
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except Exception as ex:
+            if ex.orig.pgcode == UNIQUE_VIOLATION:
+                raise BadRequest("Please login")
+            else:
+                # To find better error description, this is database error, not back end sever error
+                InternalServerError("Server error")
+        return user
+
+    @staticmethod
+    def login_voter(user_data):
+        user = VoterModel.query.filter_by(email=user_data["email"]).first()
+        if not user:
+            raise BadRequest("Wrong email or password")
+
+        if not check_password_hash(user.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+
+        return user
+    
+    @staticmethod
+    def login_uploader(user_data):
+        user = UploaderModel.query.filter_by(email=user_data["email"]).first()
+        if not user:
+            raise BadRequest("Wrong email or password")
+
+        if not check_password_hash(user.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+
+        return user
+
+    @staticmethod
+    def login_admin(user_data):
+        user = AdministratorModel.query.filter_by(email=user_data["email"]).first()
+        if not user:
+            raise BadRequest("Wrong email or password")
+
+        if not check_password_hash(user.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+
+        return user
+
+    @staticmethod
+    def create_admin(data):
+        data["password"] = generate_password_hash(data["password"])
+        admin = AdministratorModel(**data)
+        db.session.add(admin)
+        try:
+            db.session.commit()
+        except Exception as ex:
+            if ex.orig.pgcode == UNIQUE_VIOLATION:
+                raise BadRequest("Please login")
+            else:
+                InternalServerError("Server error")
+        return admin
