@@ -16,6 +16,7 @@ from utils.decorators import validate_schema
 class RegisterVoter(Resource):
     @validate_schema(VoterRegisterRequestSchema)
     def post(self):
+        print("trigger")
         user = UserManager.register_voter(request.get_json())
         token = AuthManager.encode_token(user)
         return {"token": token}, 201
@@ -24,7 +25,9 @@ class RegisterVoter(Resource):
 class LoginVoter(Resource):
     @validate_schema(VoterLoginRequestSchema)
     def post(self):
-        user = UserManager.login_voter(request.get_json())
+        request_body = request.get_json()
+        print(request_body)
+        user = UserManager.login_voter(request_body)
         token = AuthManager.encode_token(user)
         return {"token": token}, 200
     

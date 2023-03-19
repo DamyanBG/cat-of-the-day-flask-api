@@ -39,7 +39,10 @@ class UserManager:
 
     @staticmethod
     def login_voter(user_data):
+        print(user_data)
         user = VoterModel.query.filter_by(email=user_data["email"]).first()
+        print("user")
+        print(user)
         if not user:
             raise BadRequest("Wrong email or password")
 

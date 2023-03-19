@@ -13,7 +13,7 @@ class DevApplicationConfiguration:
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (
         f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
-        f"@{config('DB_HOST')}/{config('DB_NAME')}"
+        f"@{config('DB_HOST')}/{config('DB_NAME')}?sslmode=require"
     )
 
 
