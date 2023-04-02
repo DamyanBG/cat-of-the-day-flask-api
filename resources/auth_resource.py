@@ -30,7 +30,7 @@ class LoginVoter(Resource):
         user = UserManager.login_voter(request_body)
         token = AuthManager.encode_token(user)
         return {"token": token}, 200
-    
+
 
 class RegisterUploader(Resource):
     @validate_schema(UploaderRegisterRequestSchema)
@@ -54,5 +54,3 @@ class LoginAdmin(Resource):
         user = UserManager.login_admin(request.get_json())
         token = AuthManager.encode_token(user)
         return {"token": token}, 200
-
-

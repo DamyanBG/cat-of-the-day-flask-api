@@ -1,4 +1,10 @@
-from resources.auth_resource import LoginAdmin, LoginUploader, LoginVoter, RegisterUploader, RegisterVoter
+from resources.auth_resource import (
+    LoginAdmin,
+    LoginUploader,
+    LoginVoter,
+    RegisterUploader,
+    RegisterVoter,
+)
 from resources.cat_resource import AddCat
 
 routes = (
@@ -7,5 +13,5 @@ routes = (
     (RegisterUploader, "/uploader/register"),
     (RegisterVoter, "/voter/register"),
     (LoginVoter, "/voter/login"),
-    (AddCat, "/cat")
+    (AddCat, "/cat"),
 )
