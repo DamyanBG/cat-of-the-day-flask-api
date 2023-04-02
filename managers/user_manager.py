@@ -21,7 +21,7 @@ class UserManager:
                 # To find better error description, this is database error, not back end sever error
                 InternalServerError("Server error")
         return user
-    
+
     @staticmethod
     def register_uploader(user_data):
         user_data["password"] = generate_password_hash(user_data["password"])
@@ -50,7 +50,7 @@ class UserManager:
             raise BadRequest("Wrong email or password")
 
         return user
-    
+
     @staticmethod
     def login_uploader(user_data):
         user = UploaderModel.query.filter_by(email=user_data["email"]).first()

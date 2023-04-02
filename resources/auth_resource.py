@@ -45,7 +45,7 @@ class LoginUploader(Resource):
     def post(self):
         user = UserManager.login_uploader(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token}, 200
+        return {"token": token, "user_pk": user.pk}, 200
 
 
 class LoginAdmin(Resource):
