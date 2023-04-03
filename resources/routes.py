@@ -6,6 +6,7 @@ from resources.auth_resource import (
     RegisterVoter,
 )
 from resources.cat_resource import AddCat
+from resources.vote_resource import Voting
 
 routes = (
     (LoginAdmin, "/admin/login"),
@@ -14,4 +15,5 @@ routes = (
     (RegisterVoter, "/voter/register"),
     (LoginVoter, "/voter/login"),
     (AddCat, "/cat"),
+    (Voting, "/vote"),
 )

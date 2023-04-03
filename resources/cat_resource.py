@@ -3,6 +3,7 @@ from flask_restful import Resource
 
 from utils.decorators import validate_schema
 from schemas.request.cat_request import CatRequestSchema
+from schemas.response.cat_response import CatResponseSchema
 from managers.cat_manager import CatManager
 
 
@@ -10,6 +11,6 @@ class AddCat(Resource):
     @validate_schema(CatRequestSchema)
     def post(self):
         req_body = request.get_json()
-        print(req_body)
-        # cat = CatManager(req_body)
-        return "OK"
+        cat = CatManager.add_cat(req_body)
+        resp_schema = CatResponseSchema()
+        return resp_schema.dump(cat)

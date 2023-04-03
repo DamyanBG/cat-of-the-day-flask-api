@@ -37,7 +37,7 @@ class RegisterUploader(Resource):
     def post(self):
         user = UserManager.register_uploader(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token}, 201
+        return {"token": token, "user_pk": user.pk}, 201
 
 
 class LoginUploader(Resource):
