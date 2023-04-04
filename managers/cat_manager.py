@@ -32,6 +32,11 @@ class CatManager:
         db.session.add(cat)
         db.session.commit()
         return cat
+    
+    @staticmethod
+    def select_cat_of_user(user_pk):
+        cat = CatModel.query.filter_by(uploader_pk=user_pk).first()
+        return cat
 
 
     @staticmethod

@@ -5,6 +5,7 @@ from utils.decorators import validate_schema
 from schemas.request.cat_request import CatRequestSchema
 from schemas.response.cat_response import CatResponseSchema
 from managers.cat_manager import CatManager
+from managers.auth_manager import auth
 
 
 class AddCat(Resource):
@@ -14,3 +15,11 @@ class AddCat(Resource):
         cat = CatManager.add_cat(req_body)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat)
+    
+    @auth.login_required
+    def get(self):  
+        current_user = auth.current_user()
+        print(current_user)
+        cat_of_user = CatManager.select_cat_of_user(current_user.pk)
+        resp_schema = CatResponseSchema()
+        return resp_schema.dump(cat_of_user)
