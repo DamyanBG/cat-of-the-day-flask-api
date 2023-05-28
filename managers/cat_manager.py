@@ -42,22 +42,21 @@ class CatManager:
 
     @staticmethod
     def select_cat_for_vote(user_pk):
-        print(user_pk)
         user_votes_history = VoteHistoryModel.query.filter_by(voter_pk=user_pk).all()
-        print(user_votes_history[0].pk)
         user_votes_history_cats_pks = [vote_history.cat_pk for vote_history in user_votes_history]
-        print(user_votes_history_cats_pks)
         cat = CatModel.query.filter(CatModel.pk.notin_(user_votes_history_cats_pks)).order_by("votes").first()
         return cat
     
     @staticmethod
-    def vote(vote, cat_pk):
+    def vote(vote, cat_pk, user_pk):
+        vote_history = VoteHistoryModel(cat_pk=cat_pk, voter_pk=user_pk)
         cat = CatModel.query.get(cat_pk)
         cat.votes += 1
         if vote == "like":
             cat.likes += 1
         else:
             cat.dislikes += 1
+        db.session.add(vote_history)
         db.session.add(cat)
         db.session.commit()
         print(cat)

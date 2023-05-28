@@ -21,5 +21,5 @@ class Voting(Resource):
         vote = req_body["vote"]
         cat_pk = req_body["pk"]
         current_user = auth.current_user()
-        CatManager.vote(vote, cat_pk)
+        CatManager.vote(vote, cat_pk, current_user.pk)
         return "OK"
