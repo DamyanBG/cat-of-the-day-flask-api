@@ -7,6 +7,7 @@ from decouple import config
 
 from db import db
 from models.cat_model import CatModel
+from models.votes_model import VoteHistoryModel
 
 
 class CatManager:
@@ -40,8 +41,13 @@ class CatManager:
 
 
     @staticmethod
-    def select_cat_for_vote():
-        cat = CatModel.query.order_by("votes").first()
+    def select_cat_for_vote(user_pk):
+        print(user_pk)
+        user_votes_history = VoteHistoryModel.query.filter_by(voter_pk=user_pk).all()
+        print(user_votes_history[0].pk)
+        user_votes_history_cats_pks = [vote_history.cat_pk for vote_history in user_votes_history]
+        print(user_votes_history_cats_pks)
+        cat = CatModel.query.filter(CatModel.pk.notin_(user_votes_history_cats_pks)).order_by("votes").first()
         return cat
     
     @staticmethod
