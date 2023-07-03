@@ -21,14 +21,10 @@ class CatManager:
         file_extension = guess_extension(mime_type)
         file_name = f"{uuid.uuid4()}{file_extension}"
         
-        # Create the BlobServiceClient object
-        connection_string = config('AZ_STORAGE_CONNECTION_STRING')
-        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-        container_client = blob_service_client.get_container_client("catphotosdev")
-        blob = container_client.upload_blob(name=file_name, data=photo_bytes)
-        storage_url = "https://catofthedayphotos.blob.core.windows.net"
+        with open(f"photos/{file_name}", "wb") as photo_file:
+            photo_file.write(photo_bytes)
         
-        cat_data["photo_url"] = f"{storage_url}/catphotosdev/{blob.blob_name}"
+        cat_data["photo_url"] = f"photos/{file_name}"
         cat = CatModel(**cat_data)
         db.session.add(cat)
         db.session.commit()
@@ -45,6 +41,12 @@ class CatManager:
         user_votes_history = VoteHistoryModel.query.filter_by(voter_pk=user_pk).all()
         user_votes_history_cats_pks = [vote_history.cat_pk for vote_history in user_votes_history]
         cat = CatModel.query.filter(CatModel.pk.notin_(user_votes_history_cats_pks)).order_by("votes").first()
+        print(cat.photo_url)
+        image_file = open(cat.photo_url, "rb")
+        image_data_binary = image_file.read()
+        image_data = (base64.b64encode(image_data_binary)).decode('ascii')
+        print(image_data)
+        cat.cat_photo = image_data
         return cat
     
     @staticmethod
