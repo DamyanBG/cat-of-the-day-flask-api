@@ -15,9 +15,9 @@ class AddCat(Resource):
         cat = CatManager.add_cat(req_body)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat)
-    
+
     @auth.login_required
-    def get(self):  
+    def get(self):
         current_user = auth.current_user()
         print(current_user)
         cat_of_user = CatManager.select_cat_of_user(current_user.pk)

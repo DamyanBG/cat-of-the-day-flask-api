@@ -14,7 +14,7 @@ class Voting(Resource):
         cat_for_vote = CatManager.select_cat_for_vote(current_user.pk)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat_for_vote)
-    
+
     @auth.login_required
     def post(self):
         req_body = request.get_json()
