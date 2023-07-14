@@ -17,7 +17,6 @@ from utils.decorators import validate_schema
 class RegisterVoter(Resource):
     @validate_schema(VoterRegisterRequestSchema)
     def post(self):
-        print("trigger")
         user = UserManager.register_voter(request.get_json())
         token = AuthManager.encode_token(user)
         return {"token": token}, 201
@@ -27,7 +26,6 @@ class LoginVoter(Resource):
     @validate_schema(VoterLoginRequestSchema)
     def post(self):
         request_body = request.get_json()
-        print(request_body)
         user = UserManager.login_voter(request_body)
         token = AuthManager.encode_token(user)
         return {"token": token}, 200
@@ -62,7 +60,6 @@ class UserInfo(Resource):
     def get(self):
         current_user = auth.current_user()
         del current_user.password
-        print(current_user.password)
         user_schema = BaseUserResponseSchema()
         return user_schema.dump(current_user)
 
@@ -73,4 +70,4 @@ class Logout(Resource):
         req_body = request.get_json()
         token = req_body["token"]
         AuthManager.black_list_token(token)
-        return 201
+        return "OK", 201
