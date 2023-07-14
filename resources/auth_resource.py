@@ -70,5 +70,7 @@ class UserInfo(Resource):
 class Logout(Resource):
     @auth.login_required
     def post(self):
-        AuthManager.
-        return 200
+        req_body = request.get_json()
+        token = req_body["token"]
+        AuthManager.black_list_token(token)
+        return 201

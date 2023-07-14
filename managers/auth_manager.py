@@ -14,7 +14,7 @@ mapper = {
 }
 
 
-black_listed_tokens = []
+black_listed_tokens = set()
 
 
 class AuthManager:
@@ -41,7 +41,7 @@ class AuthManager:
         
     @staticmethod
     def black_list_token(token):
-        black_listed_tokens.append(token)
+        black_listed_tokens.add(token)
 
 
 auth = HTTPTokenAuth(scheme="Bearer")
