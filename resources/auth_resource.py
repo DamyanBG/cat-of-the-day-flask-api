@@ -65,3 +65,10 @@ class UserInfo(Resource):
         print(current_user.password)
         user_schema = BaseUserResponseSchema()
         return user_schema.dump(current_user)
+
+
+class Logout(Resource):
+    @auth.login_required
+    def post(self):
+        AuthManager.
+        return 200
