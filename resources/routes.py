@@ -7,7 +7,7 @@ from resources.auth_resource import (
     UserInfo,
     Logout
 )
-from resources.cat_resource import AddCat
+from resources.cat_resource import AddCat, GetCatOfTheDayPhoto
 from resources.vote_resource import Voting
 
 routes = (
@@ -20,4 +20,5 @@ routes = (
     (AddCat, "/cat"),
     (Voting, "/vote"),
     (UserInfo, "/user-info"),
+    (GetCatOfTheDayPhoto, "/cat-of-the-day-photo"),
 )

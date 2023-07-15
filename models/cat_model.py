@@ -30,5 +30,5 @@ class CatOfTheDayModel(db.Model):
     microchip_id = db.Column(db.String(255), nullable=False)
     photo_url = db.Column(db.String(255), nullable=False)
     breed = db.Column(db.String(255))
-    uploader_pk = db.Column(db.Integer, db.ForeignKey("uploaders.pk"), unique=True)
+    uploader_pk = db.Column(db.Integer, db.ForeignKey("uploaders.pk"))
     uploader = db.relationship("UploaderModel")
