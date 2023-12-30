@@ -3,7 +3,7 @@ from werkzeug.exceptions import BadRequest, InternalServerError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import db
-from models.user_models import UserModel, AdministratorModel, VoterModel
+from models.user_models import UserModel, AdministratorModel
 
 
 class UserManager:

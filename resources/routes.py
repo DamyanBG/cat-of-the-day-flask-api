@@ -1,9 +1,7 @@
 from resources.auth_resource import (
     LoginAdmin,
     LoginUploader,
-    LoginVoter,
     RegisterUploader,
-    RegisterVoter,
     UserInfo,
     Logout
 )
