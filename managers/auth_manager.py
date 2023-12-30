@@ -5,14 +5,14 @@ from decouple import config
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.exceptions import BadRequest
 
-# from models.user_models import AdministratorModel, UserModel
+from models.user_models import AdministratorModel, UserModel
 
-# mapper = {
-#     AdministratorModel: lambda: AdministratorModel.query.filter_by(id=x),
-#     UserModel: lambda: UserModel.query.filter_by(id=x),
-# }
+mapper = {
+    AdministratorModel: lambda: AdministratorModel.query.filter_by(id=x),
+    UserModel: lambda: UserModel.query.filter_by(id=x),
+}
 
-
+# To review and this logic
 black_listed_tokens = set()
 
 
@@ -50,5 +50,7 @@ auth = HTTPTokenAuth(scheme="Bearer")
 def verify_token(token):
     user_pk, role = AuthManager.decode_token(token)
     # user = mapper[role](user_pk)
+
+    # To review this logic
     user = eval(f"{role}.query.filter_by(pk={user_pk}).first()")
     return user

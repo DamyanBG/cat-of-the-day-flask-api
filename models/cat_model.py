@@ -31,4 +31,4 @@ class CatOfTheWeekModel(db.Model):
     photo_url = db.Column(db.String(255), nullable=False)
     breed = db.Column(db.String(255))
     user_pk = db.Column(db.Integer, db.ForeignKey("users.pk"))
-    user = db.relationship("UploaderModel")
+    user = db.relationship("UserModel")

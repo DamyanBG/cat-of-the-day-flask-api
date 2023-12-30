@@ -9,9 +9,12 @@ from managers.auth_manager import auth
 
 
 class CatResource(Resource):
+    @auth.login_required
     @validate_schema(CatRequestSchema)
     def post(self):
+        current_user = auth.current_user()
         req_body = request.get_json()
+        req_body["user_pk"] = current_user.pk
         cat = CatManager.add_cat(req_body)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat)

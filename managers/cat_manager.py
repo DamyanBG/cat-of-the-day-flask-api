@@ -17,7 +17,7 @@ class CatManager:
 
     @staticmethod
     def select_cat_of_user(user_pk):
-        cat = CatModel.query.filter_by(uploader_pk=user_pk).first()
+        cat = CatModel.query.filter_by(user_pk=user_pk).first()
         return cat
 
     @staticmethod
@@ -72,7 +72,7 @@ class CatOfTheDayManager:
             microchip_id=cat.microchip_id,
             photo_url=cat.photo_url,
             breed=cat.breed,
-            uploader_pk=cat.uploader_pk,
+            user_pk=cat.user_pk,
         )
         db.session.add(cat_of_the_day)
         db.session.commit()
