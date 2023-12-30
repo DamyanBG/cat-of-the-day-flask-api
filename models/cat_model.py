@@ -9,19 +9,19 @@ class CatModel(db.Model):
     pk = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     create_on = db.Column(db.DateTime, server_default=func.now())
-    passport_id = db.Column(db.String(255), nullable=False)
-    microchip_id = db.Column(db.String(255), nullable=False)
+    passport_id = db.Column(db.String(255))
+    microchip_id = db.Column(db.String(255))
     photo_url = db.Column(db.String(255), nullable=False)
     breed = db.Column(db.String(255))
     likes = db.Column(db.Integer, default=0)
     dislikes = db.Column(db.Integer, default=0)
     votes = db.Column(db.Integer, default=0)
-    uploader_pk = db.Column(db.Integer, db.ForeignKey("uploaders.pk"), unique=True)
-    uploader = db.relationship("UploaderModel")
+    user_pk = db.Column(db.Integer, db.ForeignKey("users.pk"), unique=True)
+    user = db.relationship("UserModel")
 
 
-class CatOfTheDayModel(db.Model):
-    __tablename__ = "cat_of_the_day"
+class CatOfTheWeekModel(db.Model):
+    __tablename__ = "cats_of_the_week"
     pk = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     create_on = db.Column(db.DateTime, server_default=func.now())
@@ -30,5 +30,5 @@ class CatOfTheDayModel(db.Model):
     microchip_id = db.Column(db.String(255), nullable=False)
     photo_url = db.Column(db.String(255), nullable=False)
     breed = db.Column(db.String(255))
-    uploader_pk = db.Column(db.Integer, db.ForeignKey("uploaders.pk"))
-    uploader = db.relationship("UploaderModel")
+    user_pk = db.Column(db.Integer, db.ForeignKey("users.pk"))
+    user = db.relationship("UploaderModel")

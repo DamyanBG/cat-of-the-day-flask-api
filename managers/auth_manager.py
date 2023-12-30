@@ -5,13 +5,12 @@ from decouple import config
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.exceptions import BadRequest
 
-from models.user_models import VoterModel, AdministratorModel, UploaderModel
+# from models.user_models import AdministratorModel, UserModel
 
-mapper = {
-    VoterModel: lambda: VoterModel.query.filter_by(id=x),
-    AdministratorModel: lambda: AdministratorModel.query.filter_by(id=x),
-    UploaderModel: lambda: UploaderModel.query.filter_by(id=x),
-}
+# mapper = {
+#     AdministratorModel: lambda: AdministratorModel.query.filter_by(id=x),
+#     UserModel: lambda: UserModel.query.filter_by(id=x),
+# }
 
 
 black_listed_tokens = set()

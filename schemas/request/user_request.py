@@ -13,11 +13,11 @@ class VoterRegisterRequestSchema(BaseUserSchema):
     # phone = fields.String(required=True, validate=validate.Length(min=9, max=20))
 
 
-class UploaderLoginRequestSchema(BaseUserSchema):
+class UserLoginRequestSchema(BaseUserSchema):
     pass
 
 
-class UploaderRegisterRequestSchema(BaseUserSchema):
+class UserRegisterRequestSchema(BaseUserSchema):
     first_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     last_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     # phone = fields.String(required=True, validate=validate.Length(min=9, max=20))

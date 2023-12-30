@@ -1,6 +1,6 @@
 from cloud.nextcloud import upload_base64_image
 from db import db
-from models.cat_model import CatModel, CatOfTheDayModel
+from models.cat_model import CatModel, CatOfTheWeekModel
 from models.votes_model import VoteHistoryModel
 
 
@@ -66,7 +66,7 @@ class CatManager:
 class CatOfTheDayManager:
     @staticmethod
     def add_cat_of_the_day(cat: CatModel):
-        cat_of_the_day = CatOfTheDayModel(
+        cat_of_the_day = CatOfTheWeekModel(
             name=cat.name,
             passport_id=cat.passport_id,
             microchip_id=cat.microchip_id,
@@ -79,6 +79,6 @@ class CatOfTheDayManager:
 
     @staticmethod
     def select_cat_of_the_day_photo():
-        cat_of_the_day = CatOfTheDayModel.query.order_by(db.desc(CatOfTheDayModel.create_on)).first()
+        cat_of_the_day = CatOfTheWeekModel.query.order_by(db.desc(CatOfTheWeekModel.create_on)).first()
         cat_of_the_day_photo = cat_of_the_day.photo_url
         return cat_of_the_day_photo

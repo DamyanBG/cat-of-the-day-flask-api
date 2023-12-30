@@ -6,43 +6,27 @@ from managers.user_manager import UserManager
 from schemas.request.user_request import (
     VoterLoginRequestSchema,
     VoterRegisterRequestSchema,
-    UploaderLoginRequestSchema,
-    UploaderRegisterRequestSchema,
+    UserLoginRequestSchema,
+    UserRegisterRequestSchema,
     AdminLoginRequestSchema,
 )
 from schemas.response.user_response import BaseUserResponseSchema
 from utils.decorators import validate_schema
 
 
-class RegisterVoter(Resource):
-    @validate_schema(VoterRegisterRequestSchema)
-    def post(self):
-        user = UserManager.register_voter(request.get_json())
-        token = AuthManager.encode_token(user)
-        return {"token": token}, 201
-
-
-class LoginVoter(Resource):
-    @validate_schema(VoterLoginRequestSchema)
-    def post(self):
-        request_body = request.get_json()
-        user = UserManager.login_voter(request_body)
-        token = AuthManager.encode_token(user)
-        return {"token": token}, 200
-
 
 class RegisterUploader(Resource):
-    @validate_schema(UploaderRegisterRequestSchema)
+    @validate_schema(UserRegisterRequestSchema)
     def post(self):
-        user = UserManager.register_uploader(request.get_json())
+        user = UserManager.register_user(request.get_json())
         token = AuthManager.encode_token(user)
         return {"token": token, "user_pk": user.pk}, 201
 
 
 class LoginUploader(Resource):
-    @validate_schema(UploaderLoginRequestSchema)
+    @validate_schema(UserLoginRequestSchema)
     def post(self):
-        user = UserManager.login_uploader(request.get_json())
+        user = UserManager.login_user(request.get_json())
         token = AuthManager.encode_token(user)
         return {"token": token, "user_pk": user.pk}, 200
 

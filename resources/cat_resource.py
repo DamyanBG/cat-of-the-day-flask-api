@@ -8,7 +8,7 @@ from managers.cat_manager import CatManager, CatOfTheDayManager
 from managers.auth_manager import auth
 
 
-class AddCat(Resource):
+class CatResource(Resource):
     @validate_schema(CatRequestSchema)
     def post(self):
         req_body = request.get_json()
