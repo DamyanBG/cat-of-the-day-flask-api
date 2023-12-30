@@ -26,7 +26,7 @@ def upload_base64_image(base64_image):
 
         nc = nextcloud_client.Client(NEXTCLOUD_HOST)
         nc.login(NEXTCLOUD_USER, NEXTCLOUD_PASS)
-        nc.put_file(f"catoftheday/{file_name}", temp_file_path)
+        nc.put_file(f"{NEXTCLOUD_FOLDER}/{file_name}", temp_file_path)
         link_info = nc.share_file_with_link(f"{NEXTCLOUD_FOLDER}/{file_name}")
         link = link_info.get_link()
 
