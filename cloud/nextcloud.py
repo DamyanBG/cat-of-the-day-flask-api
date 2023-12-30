@@ -8,7 +8,8 @@ from decouple import config
 
 NEXTCLOUD_USER = config("NEXTCLOUD_USER")
 NEXTCLOUD_PASS = config("NEXTCLOUD_PASSWORD")
-
+NEXTCLOUD_HOST = config("NEXTCLOUD_HOST")
+NEXTCLOUD_FOLDER = config("NEXTCLOUD_FOLDER")
 
 def upload_base64_image(base64_image):
     extension_container, base64_data = base64_image.split(",")
@@ -23,10 +24,10 @@ def upload_base64_image(base64_image):
         with open(temp_file_path, "wb") as temp_file:
             temp_file.write(photo_bytes)
 
-        nc = nextcloud_client.Client("https://dymboto.chickenkiller.com")
+        nc = nextcloud_client.Client(NEXTCLOUD_HOST)
         nc.login(NEXTCLOUD_USER, NEXTCLOUD_PASS)
         nc.put_file(f"catoftheday/{file_name}", temp_file_path)
-        link_info = nc.share_file_with_link(f"catoftheday/{file_name}")
+        link_info = nc.share_file_with_link(f"{NEXTCLOUD_FOLDER}/{file_name}")
         link = link_info.get_link()
 
         print("Here is your link: " + link)
