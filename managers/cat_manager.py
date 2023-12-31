@@ -1,3 +1,5 @@
+from werkzeug.exceptions import NotFound
+
 from cloud.nextcloud import upload_base64_image
 from db import db
 from models.cat_model import CatModel, CatOfTheWeekModel
@@ -80,5 +82,7 @@ class CatOfTheDayManager:
     @staticmethod
     def select_cat_of_the_day_photo():
         cat_of_the_day = CatOfTheWeekModel.query.order_by(db.desc(CatOfTheWeekModel.create_on)).first()
+        if not cat_of_the_day:
+            raise NotFound("There is no cat of the week!")
         cat_of_the_day_photo = cat_of_the_day.photo_url
         return cat_of_the_day_photo
