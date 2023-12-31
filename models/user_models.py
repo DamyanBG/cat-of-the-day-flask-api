@@ -17,10 +17,12 @@ class BaseUserModel(db.Model):
 class UserModel(BaseUserModel):
     __tablename__ = "users"
 
+
 # class VoterModel(BaseUserModel):
 #     __tablename__ = "voter"
 
 #     role = db.Column(db.Enum(RoleType), default=RoleType.voter, nullable=False)
+
 
 class AdministratorModel(BaseUserModel):
     __tablename__ = "administrators"

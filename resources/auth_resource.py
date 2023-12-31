@@ -14,7 +14,6 @@ from schemas.response.user_response import BaseUserResponseSchema
 from utils.decorators import validate_schema
 
 
-
 class RegisterUploader(Resource):
     @validate_schema(UserRegisterRequestSchema)
     def post(self):

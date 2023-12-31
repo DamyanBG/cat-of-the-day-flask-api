@@ -11,6 +11,7 @@ NEXTCLOUD_PASS = config("NEXTCLOUD_PASSWORD")
 NEXTCLOUD_HOST = config("NEXTCLOUD_HOST")
 NEXTCLOUD_FOLDER = config("NEXTCLOUD_FOLDER")
 
+
 def upload_base64_image(base64_image):
     extension_container, base64_data = base64_image.split(",")
     photo_bytes = base64.b64decode(base64_data.encode("utf-8"))

@@ -46,12 +46,14 @@ class CatManager:
         db.session.add(cat)
         db.session.commit()
         return "OK"
-    
+
     @staticmethod
     def select_winning_cat():
-        winning_cat = db.session.execute(db.select(CatModel).order_by(db.desc(CatModel.likes - CatModel.dislikes))).first()[0]
+        winning_cat = db.session.execute(
+            db.select(CatModel).order_by(db.desc(CatModel.likes - CatModel.dislikes))
+        ).first()[0]
         return winning_cat
-    
+
     @staticmethod
     def reset_votes():
         cats = CatModel.query.all()
@@ -59,7 +61,7 @@ class CatManager:
             cat.votes = 0
             cat.likes = 0
             cat.dislikes = 0
-        
+
         db.session.commit()
 
 
@@ -79,6 +81,8 @@ class CatOfTheDayManager:
 
     @staticmethod
     def select_cat_of_the_day_photo():
-        cat_of_the_day = CatOfTheWeekModel.query.order_by(db.desc(CatOfTheWeekModel.create_on)).first()
+        cat_of_the_day = CatOfTheWeekModel.query.order_by(
+            db.desc(CatOfTheWeekModel.create_on)
+        ).first()
         cat_of_the_day_photo = cat_of_the_day.photo_url
         return cat_of_the_day_photo

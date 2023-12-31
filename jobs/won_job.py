@@ -1,6 +1,7 @@
 from managers.cat_manager import CatManager, CatOfTheDayManager
 from managers.votes_history_manager import VoteHistoryManager
 
+
 def won(app):
     def execute():
         with app.app_context():

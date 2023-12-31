@@ -37,7 +37,7 @@ class AuthManager:
             raise BadRequest("Token expired")
         except jwt.InvalidTokenError:
             raise BadRequest("Invalid token")
-        
+
     @staticmethod
     def black_list_token(token):
         black_listed_tokens.add(token)

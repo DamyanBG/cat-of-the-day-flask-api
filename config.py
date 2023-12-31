@@ -10,6 +10,7 @@ from resources.routes import routes
 from jobs.won_job import won
 from jobs.jobs import jobs
 
+
 class DevApplicationConfiguration:
     DEBUG = True
     TESTING = True
@@ -37,7 +38,7 @@ def create_app(config="config.DevApplicationConfiguration"):
     api = Api(app)
     [api.add_resource(*r) for r in routes]
     scheduler = APScheduler()
-    scheduler.add_job(func=won(app), trigger="cron", hour="23", id="won-cat-of-the-day")
+    scheduler.add_job(func=won(app), trigger="cron", week='*', day_of_week='sun', hour="23", minute="30", id="won-cat-of-the-day")
     # [scheduler.add_job(*j) for j in jobs]
     scheduler.init_app(app)
     scheduler.start()

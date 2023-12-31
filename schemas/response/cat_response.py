@@ -11,4 +11,3 @@ class CatResponseSchema(BaseCatSchema):
 
 class CatOfTheDayPhotoResponseSchema(Schema):
     photo_url = fields.String(required=True)
-    

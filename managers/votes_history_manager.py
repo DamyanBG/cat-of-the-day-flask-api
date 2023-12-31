@@ -1,6 +1,7 @@
 from models.votes_model import VoteHistoryModel
 from db import db
 
+
 class VoteHistoryManager:
     @staticmethod
     def delete_all_history():

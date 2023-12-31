@@ -3,7 +3,7 @@ from resources.auth_resource import (
     LoginUploader,
     RegisterUploader,
     UserInfo,
-    Logout
+    Logout,
 )
 from resources.cat_resource import CatResource, GetCatOfTheDayPhoto
 from resources.vote_resource import Voting
