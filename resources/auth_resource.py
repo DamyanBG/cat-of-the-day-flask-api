@@ -3,9 +3,8 @@ from flask_restful import Resource
 
 from managers.auth_manager import AuthManager, auth
 from managers.user_manager import UserManager
+from managers.cat_manager import CatManager
 from schemas.request.user_request import (
-    VoterLoginRequestSchema,
-    VoterRegisterRequestSchema,
     UserLoginRequestSchema,
     UserRegisterRequestSchema,
     AdminLoginRequestSchema,
@@ -14,7 +13,7 @@ from schemas.response.user_response import BaseUserResponseSchema
 from utils.decorators import validate_schema
 
 
-class RegisterUploader(Resource):
+class RegisterUser(Resource):
     @validate_schema(UserRegisterRequestSchema)
     def post(self):
         user = UserManager.register_user(request.get_json())
@@ -22,12 +21,14 @@ class RegisterUploader(Resource):
         return {"token": token, "user_pk": user.pk}, 201
 
 
-class LoginUploader(Resource):
+class LoginUser(Resource):
     @validate_schema(UserLoginRequestSchema)
     def post(self):
         user = UserManager.login_user(request.get_json())
+        has_uploaded_cat = CatManager.check_has_user_uploaded_cat(user.pk)
+        print(has_uploaded_cat)
         token = AuthManager.encode_token(user)
-        return {"token": token, "user_pk": user.pk}, 200
+        return {"token": token, "user_pk": user.pk, "has_uploaded_cat": has_uploaded_cat}, 200
 
 
 class LoginAdmin(Resource):

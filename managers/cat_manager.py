@@ -1,4 +1,5 @@
 from werkzeug.exceptions import NotFound
+from datetime import datetime, timedelta
 
 from cloud.nextcloud import upload_base64_image
 from db import db
@@ -65,6 +66,15 @@ class CatManager:
             cat.dislikes = 0
 
         db.session.commit()
+
+    @staticmethod
+    def check_has_user_uploaded_cat(user_pk):
+        today = datetime.now()
+        # Calculate the start date of the current calendar week (assuming Monday is the start of the week)
+        start_of_week = (today - timedelta(days=(today.weekday()) % 7)).replace(hour=0, minute=0, second=0, microsecond=0)
+        print(start_of_week)
+        user_cat = CatModel.query.filter_by(user_pk=user_pk).filter(CatModel.create_on >= start_of_week).first()
+        return bool(user_cat)
 
 
 class CatOfTheDayManager:

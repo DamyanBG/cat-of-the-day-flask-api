@@ -1,7 +1,7 @@
 from resources.auth_resource import (
     LoginAdmin,
-    LoginUploader,
-    RegisterUploader,
+    LoginUser,
+    RegisterUser,
     UserInfo,
     Logout,
 )
@@ -10,9 +10,9 @@ from resources.vote_resource import Voting
 
 routes = (
     (LoginAdmin, "/admin/login"),
-    (LoginUploader, "/user/login"),
+    (LoginUser, "/user/login"),
     (Logout, "/logout"),
-    (RegisterUploader, "/user/register"),
+    (RegisterUser, "/user/register"),
     (CatResource, "/cat"),
     (Voting, "/vote"),
     (UserInfo, "/user-info"),
