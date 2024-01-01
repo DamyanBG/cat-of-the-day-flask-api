@@ -34,4 +34,4 @@ class CatResource(Resource):
 class GetCatOfTheDayPhoto(Resource):
     def get(self):
         cat_of_the_day_photo = CatOfTheDayManager.select_cat_of_the_day_photo()
-        return cat_of_the_day_photo, 200
+        return {"cat_of_the_day": cat_of_the_day_photo}, 200

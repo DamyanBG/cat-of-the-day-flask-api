@@ -12,8 +12,10 @@ class Voting(Resource):
     def get(self):
         current_user = auth.current_user()
         cat_for_vote = CatManager.select_cat_for_vote(current_user.pk)
+        if not cat_for_vote:
+            return {"message": "No more cats for vote!"}, 200
         resp_schema = CatResponseSchema()
-        return resp_schema.dump(cat_for_vote)
+        return resp_schema.dump(cat_for_vote), 200
 
     @auth.login_required
     def post(self):
