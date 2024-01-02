@@ -2,6 +2,7 @@ from sqlalchemy import func
 
 from db import db
 
+
 class BaseCatModel(db.Model):
     __abstract__ = True
 
@@ -12,7 +13,6 @@ class BaseCatModel(db.Model):
     microchip_id = db.Column(db.String(255))
     photo_url = db.Column(db.String(255), nullable=False)
     breed = db.Column(db.String(255))
-    
 
 
 class CurrentRoundCatsModel(BaseCatModel):

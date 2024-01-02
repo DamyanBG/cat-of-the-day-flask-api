@@ -28,7 +28,11 @@ class LoginUser(Resource):
         has_uploaded_cat = CatManager.check_has_user_uploaded_cat(user.pk)
         print(has_uploaded_cat)
         token = AuthManager.encode_token(user)
-        return {"token": token, "user_pk": user.pk, "has_uploaded_cat": has_uploaded_cat}, 200
+        return {
+            "token": token,
+            "user_pk": user.pk,
+            "has_uploaded_cat": has_uploaded_cat,
+        }, 200
 
 
 class LoginAdmin(Resource):

@@ -21,6 +21,14 @@ class DevApplicationConfiguration:
     )
 
 
+class BetaApplicationConfiguration:
+    SCHEDULER_API_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = (
+        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+        f"@{config('DB_HOST')}/{config('DB_NAME')}"
+    )
+
+
 # class TestApplicationConfiguration:
 #     DEBUG = True
 #     TESTING = True
@@ -38,7 +46,15 @@ def create_app(config="config.DevApplicationConfiguration"):
     api = Api(app)
     [api.add_resource(*r) for r in routes]
     scheduler = APScheduler()
-    scheduler.add_job(func=won(app), trigger="cron", week='*', day_of_week='sun', hour="23", minute="30", id="won-cat-of-the-day")
+    scheduler.add_job(
+        func=won(app),
+        trigger="cron",
+        week="*",
+        day_of_week="sun",
+        hour="23",
+        minute="30",
+        id="won-cat-of-the-day",
+    )
     # [scheduler.add_job(*j) for j in jobs]
     scheduler.init_app(app)
     scheduler.start()
