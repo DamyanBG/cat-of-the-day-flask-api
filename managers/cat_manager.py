@@ -113,8 +113,8 @@ class CatOfTheDayManager:
 
 class NextRoundCatsManager:
     @staticmethod
-    def check_has_user_uploaded_cat(cls, user_pk):
-        return bool(cls.select_cat_of_user(user_pk))
+    def check_has_user_uploaded_cat(user_pk):
+        return bool(NextRoundCatsManager.select_cat_of_user(user_pk))
 
     @staticmethod
     def select_cat_of_user(user_pk):

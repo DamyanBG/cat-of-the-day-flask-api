@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 from managers.auth_manager import AuthManager, auth
 from managers.user_manager import UserManager
-from managers.cat_manager import CatManager
+from managers.cat_manager import NextRoundCatsManager
 from schemas.request.user_request import (
     UserLoginRequestSchema,
     UserRegisterRequestSchema,
@@ -25,7 +25,7 @@ class LoginUser(Resource):
     @validate_schema(UserLoginRequestSchema)
     def post(self):
         user = UserManager.login_user(request.get_json())
-        has_uploaded_cat = CatManager.check_has_user_uploaded_cat(user.pk)
+        has_uploaded_cat = NextRoundCatsManager.check_has_user_uploaded_cat(user.pk)
         print(has_uploaded_cat)
         token = AuthManager.encode_token(user)
         return {
