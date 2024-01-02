@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 from managers.auth_manager import AuthManager, auth
 from managers.user_manager import UserManager
-from managers.cat_manager import NextRoundCatsManager
+from managers.cat_manager import NextRoundCatsManager, CatManager
 from schemas.request.user_request import (
     UserLoginRequestSchema,
     UserRegisterRequestSchema,
@@ -50,6 +50,14 @@ class UserInfo(Resource):
         del current_user.password
         user_schema = BaseUserResponseSchema()
         return user_schema.dump(current_user)
+    
+    @auth.login_required
+    def delete(self):
+        current_user = auth.current_user()
+        NextRoundCatsManager.delete_user_cat(current_user.pk)
+        CatManager.delete_user_cat(current_user.pk)
+        UserManager.delete_user(current_user.pk)
+        return "OK", 204
 
 
 class Logout(Resource):

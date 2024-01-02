@@ -85,6 +85,13 @@ class CatManager:
         db.session.add_all(cats_to_add)
         db.session.commit()
 
+    @staticmethod
+    def delete_user_cat(user_pk):
+        cat = CurrentRoundCatsModel.query.filter_by(user_pk=user_pk).first()
+        if cat:
+            db.session.delete(cat)
+            db.session.commit()
+
 
 class CatOfTheDayManager:
     @staticmethod
@@ -112,6 +119,13 @@ class CatOfTheDayManager:
 
 
 class NextRoundCatsManager:
+    @staticmethod
+    def delete_user_cat(user_pk):
+        cat = NextRoundCatsManager.select_cat_of_user(user_pk)
+        if cat:
+            db.session.delete(cat)
+            db.session.commit()
+
     @staticmethod
     def check_has_user_uploaded_cat(user_pk):
         return bool(NextRoundCatsManager.select_cat_of_user(user_pk))

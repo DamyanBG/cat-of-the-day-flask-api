@@ -57,3 +57,11 @@ class UserManager:
             else:
                 InternalServerError("Server error")
         return admin
+
+
+    @staticmethod
+    def delete_user(user_pk):
+        user = UserModel.query.filter_by(pk=user_pk).first()
+
+        db.session.delete(user)
+        db.session.commit()
