@@ -7,7 +7,7 @@ from flask_apscheduler import APScheduler
 
 from db import db
 from resources.routes import routes
-from jobs.won_job import won
+from jobs.won_job import won, test
 from jobs.jobs import jobs
 
 
@@ -55,6 +55,13 @@ def create_app(config="config.DevApplicationConfiguration"):
         minute="30",
         id="won-cat-of-the-day",
     )
+    scheduler.add_job(
+        func=test(app),
+        trigger="cron",
+        minute="*/1",
+        id="testing-gunicorn",
+    )
+    
     # [scheduler.add_job(*j) for j in jobs]
     scheduler.init_app(app)
     scheduler.start()
