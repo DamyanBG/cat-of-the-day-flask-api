@@ -55,13 +55,6 @@ def create_app(config="config.DevApplicationConfiguration"):
         minute="30",
         id="won-cat-of-the-day",
     )
-    scheduler.add_job(
-        func=test(app),
-        trigger="cron",
-        minute="*/1",
-        id="testing-gunicorn",
-    )
-    
     # [scheduler.add_job(*j) for j in jobs]
     scheduler.init_app(app)
     scheduler.start()

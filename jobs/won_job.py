@@ -16,11 +16,3 @@ def won(app):
             NextRoundCatsManager.delete_all_cats()
 
     return execute
-
-
-def test(app):
-    def execute():
-        with app.app_context():
-            print("Running")
-
-    return execute
