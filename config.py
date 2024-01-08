@@ -7,7 +7,7 @@ from flask_apscheduler import APScheduler
 
 from db import db
 from resources.routes import routes
-from jobs.won_job import won, test
+from jobs.won_job import won
 from jobs.jobs import jobs
 
 
