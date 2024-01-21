@@ -7,7 +7,7 @@ from schemas.response.cat_response import (
     CatResponseSchema,
     CatOfTheDayPhotoResponseSchema,
 )
-from managers.cat_manager import CatManager, CatOfTheDayManager
+from managers.cat_manager import CatManager, CatOfTheDayManager, NextRoundCatsManager
 from managers.auth_manager import auth
 
 
@@ -18,7 +18,7 @@ class CatResource(Resource):
         current_user = auth.current_user()
         req_body = request.get_json()
         req_body["user_pk"] = current_user.pk
-        cat = CatManager.add_cat(req_body)
+        cat = NextRoundCatsManager.add_cat(req_body)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat)
 
@@ -26,7 +26,7 @@ class CatResource(Resource):
     def get(self):
         current_user = auth.current_user()
         print(current_user)
-        cat_of_user = CatManager.select_cat_of_user(current_user.pk)
+        cat_of_user = NextRoundCatsManager.select_cat_of_user(current_user.pk)
         resp_schema = CatResponseSchema()
         return resp_schema.dump(cat_of_user)
 

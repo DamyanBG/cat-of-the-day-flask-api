@@ -16,5 +16,5 @@ routes = (
     (CatResource, "/cat"),
     (Voting, "/vote"),
     (UserInfo, "/user-info"),
-    (GetCatOfTheDayPhoto, "/cat-of-the-day-photo"),
+    (GetCatOfTheDayPhoto, "/cat-of-the-week-photo"),
 )
