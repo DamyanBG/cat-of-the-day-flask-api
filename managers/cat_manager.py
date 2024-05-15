@@ -1,4 +1,5 @@
 from werkzeug.exceptions import NotFound
+from typing import Union
 
 from db import db
 from models.cat_model import (
@@ -11,7 +12,7 @@ from models.votes_model import VoteHistoryModel
 
 class CatManager:
     @staticmethod
-    def select_cat_for_vote(user_pk):
+    def select_cat_for_vote(user_pk) -> Union[CurrentRoundCatsModel, None]:
         user_votes_history = VoteHistoryModel.query.filter_by(voter_pk=user_pk).all()
         user_votes_history_cats_pks = [
             vote_history.cat_pk for vote_history in user_votes_history

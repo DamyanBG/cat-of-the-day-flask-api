@@ -14,5 +14,5 @@ class ImageManager:
 
     @staticmethod
     def select_image(image_pk: int) -> ImageModel:
-        image = ImageModel.queryfilter_by(user_pk=image_pk).first()
+        image = ImageModel.query.filter_by(pk=image_pk).first()
         return image
