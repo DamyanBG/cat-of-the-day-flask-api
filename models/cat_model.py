@@ -22,7 +22,7 @@ class CurrentRoundCatsModel(BaseCatModel):
     likes = db.Column(db.Integer, default=0)
     dislikes = db.Column(db.Integer, default=0)
     votes = db.Column(db.Integer, default=0)
-    photo_id = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
+    photo_pk = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
     photo = db.relationship("ImageModel")
 
 
@@ -31,7 +31,7 @@ class NextRoundCatsModel(BaseCatModel):
 
     user_pk = db.Column(db.Integer, db.ForeignKey("users.pk"), unique=True)
     user = db.relationship("UserModel")
-    photo_id = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
+    photo_pk = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
     photo = db.relationship("ImageModel")
 
 
@@ -40,7 +40,7 @@ class CatOfTheWeekModel(BaseCatModel):
 
     user_pk = db.Column(db.Integer, db.ForeignKey("users.pk"), unique=True)
     user = db.relationship("UserModel")
-    photo_id = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
+    photo_pk = db.Column(db.Integer, db.ForeignKey("images.pk"), unique=True)
     photo = db.relationship("ImageModel")
 
     # the_day = db.Column(db.DateTime)
