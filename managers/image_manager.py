@@ -2,6 +2,7 @@ from db import db
 from models.image_model import ImageModel
 from cloud.nextcloud import upload_base64_image
 
+
 class ImageManager:
     @staticmethod
     def create_image(image_data) -> ImageModel:

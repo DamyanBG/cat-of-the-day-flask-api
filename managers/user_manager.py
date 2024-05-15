@@ -58,7 +58,6 @@ class UserManager:
                 InternalServerError("Server error")
         return admin
 
-
     @staticmethod
     def delete_user(user_pk):
         user = UserModel.query.filter_by(pk=user_pk).first()

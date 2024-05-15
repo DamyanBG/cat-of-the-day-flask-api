@@ -50,7 +50,7 @@ class UserInfo(Resource):
         del current_user.password
         user_schema = BaseUserResponseSchema()
         return user_schema.dump(current_user)
-    
+
     @auth.login_required
     def delete(self):
         current_user = auth.current_user()
