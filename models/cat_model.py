@@ -9,8 +9,9 @@ class BaseCatModel(db.Model):
     pk = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.DateTime, server_default=func.now())
-    passport_id = db.Column(db.String(255))
-    microchip_id = db.Column(db.String(255))
+    birth_date = db.Column(db.DateTime)
+    microchip = db.Column(db.String(255))
+    color = db.Column(db.String(255))
     breed = db.Column(db.String(255))
 
 

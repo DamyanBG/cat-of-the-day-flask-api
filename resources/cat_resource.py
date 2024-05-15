@@ -21,7 +21,7 @@ class CatResource(Resource):
         req_body["user_pk"] = current_user.pk
         cat = NextRoundCatsManager.add_cat(req_body)
         resp_schema = CatResponseSchema()
-        return resp_schema.dump(cat)
+        return resp_schema.dump(cat), 201
 
     @auth.login_required
     def get(self):
