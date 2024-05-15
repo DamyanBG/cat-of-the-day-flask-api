@@ -4,4 +4,4 @@ from schemas.bases import BaseCatSchema
 
 
 class CatRequestSchema(BaseCatSchema):
-    photo = fields.String(required=True)
+    photo_id = fields.String(required=True)

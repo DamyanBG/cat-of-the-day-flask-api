@@ -7,6 +7,7 @@ from resources.auth_resource import (
 )
 from resources.cat_resource import CatResource, GetCatOfTheDayPhoto
 from resources.vote_resource import Voting
+from resources.image_resource import ImageResource
 
 routes = (
     (LoginAdmin, "/admin/login"),
@@ -17,4 +18,5 @@ routes = (
     (Voting, "/vote"),
     (UserInfo, "/user-info"),
     (GetCatOfTheDayPhoto, "/cat-of-the-week-photo"),
+    (ImageResource, "/image"),
 )

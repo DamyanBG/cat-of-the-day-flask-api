@@ -1,6 +1,5 @@
 from werkzeug.exceptions import NotFound
 
-from cloud.nextcloud import upload_base64_image
 from db import db
 from models.cat_model import (
     CurrentRoundCatsModel,
@@ -131,15 +130,14 @@ class NextRoundCatsManager:
         return bool(NextRoundCatsManager.select_cat_of_user(user_pk))
 
     @staticmethod
-    def select_cat_of_user(user_pk):
+    def select_cat_of_user(user_pk) -> NextRoundCatsModel:
         cat = NextRoundCatsModel.query.filter_by(user_pk=user_pk).first()
+        if not cat:
+            raise NotFound("This user does not have uploaded cat!")
         return cat
 
     @staticmethod
     def add_cat(cat_data):
-        base64_photo = cat_data.pop("photo")
-        photo_url = upload_base64_image(base64_photo)
-        cat_data["photo_url"] = photo_url
         cat = NextRoundCatsModel(**cat_data)
         db.session.add(cat)
         db.session.commit()
